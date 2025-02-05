@@ -1,0 +1,76 @@
+// Main function: Program execution starts from here
+void main() {
+  // Creating an instance of the Car class
+  Car car = Car('Corolla', 'AD1', 2001, 2);
+
+  // Displaying car details
+  car.display();
+
+  // Calculating and displaying rental price for 6 days
+  print('Rental Price for 6 Days: \$${car.calculateRental(6)}');
+}
+
+// Base class representing a generic vehicle
+class Vehicle {
+  String brand; // Brand of the vehicle
+  String model; // Model of the vehicle
+  int year; // Manufacturing year
+
+  // Constructor to initialize vehicle properties
+  Vehicle(this.brand, this.model, this.year);
+
+  // Method to display vehicle details
+  void display() {
+    print('*** Vehicle Details ***');
+    print('Brand: $brand');
+    print('Model: $model');
+    print('Year: $year');
+  }
+
+  // Method to calculate rental price based on number of days
+  double calculateRental(int days) {
+    return days * 50.0; // Default rental rate: $50 per day
+  }
+}
+
+// Car class extending Vehicle
+class Car extends Vehicle {
+  int doors; // Number of doors in the car
+
+  // Constructor to initialize car properties along with vehicle properties
+  Car(String brand, String model, int year, this.doors) : super(brand, model, year);
+
+  // Overriding display method to include car-specific details
+  @override
+  void display() {
+    super.display(); // Calling parent class display method
+    print('Doors: $doors');
+  }
+
+  // Overriding rental calculation method for cars
+  @override
+  double calculateRental(int days) {
+    return super.calculateRental(days) + (20 * doors); // Additional cost per door
+  }
+}
+
+// Bike class extending Vehicle
+class Bike extends Vehicle {
+  bool hasCarrier; // Indicates if the bike has a carrier
+
+  // Constructor to initialize bike properties along with vehicle properties
+  Bike(String brand, String model, int year, this.hasCarrier) : super(brand, model, year);
+
+  // Overriding display method to include bike-specific details
+  @override
+  void display() {
+    super.display(); // Calling parent class display method
+    print('Has Carrier: ${hasCarrier ? 'Yes' : 'No'}');
+  }
+
+  // Overriding rental calculation method for bikes
+  @override
+  double calculateRental(int days) {
+    return super.calculateRental(days) - (hasCarrier ? 5.0 : 0.0); // Discount if the bike has a carrier
+  }
+}
